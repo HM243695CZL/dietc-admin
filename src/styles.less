@@ -1,1 +1,40 @@
+
+// Custom Theming for NG-ZORRO
+// For more information: https://ng.ant.design/docs/customize-theme/en
+@import "../node_modules/ng-zorro-antd/ng-zorro-antd.less";
+
+// Override less variables to here
+// View all variables: https://github.com/NG-ZORRO/ng-zorro-antd/blob/master/components/style/themes/default.less
+
+// @primary-color: #1890ff;
 /* You can add global styles to this file, and also import other style files */
+// 滚动条样式
+::-webkit-scrollbar-thumb {
+  height: 32px;
+  background: #d1d1d1;
+  outline-offset: 2px;
+  outline: 2px solid #fff;
+  border-radius: 6px;
+  border: 0px solid #fff;
+}
+
+::-webkit-scrollbar-thumb:HOVER {
+  background: #828282;
+}
+
+::-webkit-scrollbar-thumb:ACTIVE {
+  background: #747474;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 10px;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+  border-radius: 0;
+}
+
+.nicescroll-rails div:HOVER {
+  background: #333;
+}
