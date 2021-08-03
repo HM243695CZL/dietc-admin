@@ -22,6 +22,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import {counterReducer} from './store/reducer';
 import {CounterAction} from './store/actions';
+import {AppReuseStrategy} from './router/routerUtils/AppReuseStrategy';
+import {RouteReuseStrategy} from '@angular/router';
 
 registerLocaleData(zh);
 
@@ -47,7 +49,11 @@ registerLocaleData(zh);
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot()
   ],
-  providers: [{ provide: NZ_I18N, useValue: zh_CN }, CounterAction],
+  providers: [
+    { provide: NZ_I18N, useValue: zh_CN },
+    { provide: RouteReuseStrategy, useClass: AppReuseStrategy },
+    CounterAction
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,8 +3,8 @@ import {Observable} from 'rxjs';
 import {Store, select} from '@ngrx/store';
 import {CounterAction} from '../../store/actions';
 
-interface AppStore {
-  count: number;
+interface HomeStore {
+  count: any;
 }
 @Component({
   selector: 'app-home',
@@ -12,16 +12,18 @@ interface AppStore {
   styleUrls: ['./home.component.less']
 })
 export class HomeComponent implements OnInit {
-  count: number | undefined;
+  countNumber: any;
+  tagList: any;
   constructor(
-    private store: Store<AppStore>,
+    private store: Store<HomeStore>,
     private action: CounterAction
   ) {
     // 注入store
     const stream = store.pipe(select('count'));
     // 从app.module.ts获取count状态流
     stream.subscribe(res => {
-      this.count = res;
+      this.countNumber = res.count;
+      this.tagList = res.tagList;
     });
   }
 
