@@ -1,13 +1,14 @@
 // reducer.ts,一般需要将state,action,reducer进行文件拆分
 import { Action } from '@ngrx/store';
 import {
-  INCREMENT, DECREMENT, RESET, ADD_TAG_LIST,
+  ADD_TAG_LIST,
   CUT_TAG_LIST, CUT_OTHER_TAG_LIST, EMPTY_TAG_LIST
 } from './actionType';
+import {StorageUtil} from '../utils/storage.util';
 
 
 const initialState = {
-  count: 0,
+  token: StorageUtil.getSession('token'),
   tagList: [],
   menuList: [
     {
@@ -34,27 +35,10 @@ const initialState = {
   ]
 };
 // reducer定义了action被派发时state的具体改变方式
-export function counterReducer(state: any = initialState, action: Action): any {
+export function uiReducer(state: any = initialState, action: Action): any {
   // @ts-ignore
   const {type, payload} = action;
   switch (type) {
-    case INCREMENT:
-      return {
-        ...state,
-        count: state.count + 1
-      };
-
-    case DECREMENT:
-      return {
-        ...state,
-        count: state.count - 1
-      };
-
-    case RESET:
-      return {
-        ...state,
-        count: 0
-      };
     case ADD_TAG_LIST:
       const currentTagList = [...state.tagList];
       if (currentTagList.filter(ele => ele.url === payload).length) {

@@ -6,7 +6,7 @@ import {CounterAction} from '../store/actions';
 import {AppReuseStrategy} from '../router/routerUtils/AppReuseStrategy';
 
 interface AppStore {
-  count: any;
+  ui: any;
 }
 
 @Component({
@@ -24,9 +24,10 @@ export class AppComponent implements OnInit{
     private action: CounterAction
   ) {
     // 注入store
-    const stream = store.pipe(select('count'));
+    const stream = store.pipe(select('ui'));
     // 从app.module.ts获取count状态流
     stream.subscribe(res => {
+      console.log(res);
       const {tagList, menuList} = res;
       this.tagList = tagList;
       this.menuList = menuList;
@@ -132,7 +133,6 @@ export class AppComponent implements OnInit{
   goToDetailMenu(item: any): void {
     this.chooseTag(item);
     this.addTagList(item.url);
-    console.log(AppReuseStrategy.resetCache());
   }
 
 }

@@ -20,7 +20,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import {counterReducer} from './store/reducer';
+import {uiReducer} from './store/reducer';
 import {CounterAction} from './store/actions';
 import {AppReuseStrategy} from './router/routerUtils/AppReuseStrategy';
 import {RouteReuseStrategy} from '@angular/router';
@@ -43,7 +43,7 @@ registerLocaleData(zh);
     NzTagModule,
     NzDropDownModule,
     StoreModule.forRoot({
-      count: counterReducer
+      ui: uiReducer
     }, {}), // 注册store
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([]),
