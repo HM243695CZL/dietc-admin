@@ -1,4 +1,14 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {NzContextMenuService, NzDropdownMenuComponent} from 'ng-zorro-antd/dropdown';
+import {select, Store} from '@ngrx/store';
+import {CounterAction} from '../store/actions';
+import {AppReuseStrategy} from '../router/routerUtils/AppReuseStrategy';
+import {StorageUtil} from '../utils/storage.util';
+
+interface AppStore {
+  ui: any;
+}
 
 @Component({
   selector: 'app-pages',
@@ -6,10 +16,135 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./pages.component.less']
 })
 
+
 export class PagesComponent implements OnInit{
+  currentPath = location.pathname;
+  tagList: any;
+  menuList: any;
+  constructor(
+    private router: Router,
+    private nzContextMenuService: NzContextMenuService,
+    private store: Store<AppStore>,
+    private action: CounterAction
+  ) {
+    // 注入store
+    const stream = store.pipe(select('ui'));
+    // 从app.module.ts获取count状态流
+    stream.subscribe(res => {
+      console.log(res);
+      const {tagList, menuList} = res;
+      this.tagList = tagList;
+      this.menuList = menuList;
+    });
+  }
 
-  constructor() { }
-
+  isCollapsed = false;
   ngOnInit() {
+    console.log(this.currentPath);
+    this.initTagList();
+  }
+
+  /**
+   * 添加标签
+   * @param url url
+   */
+  addTagList(url: any): void {
+    this.store.dispatch(this.action.AddTagList(url));
+  }
+
+  /**
+   * 关闭当前标签
+   */
+  cutTagList(url: any): void {
+    // 删除路由快照
+    AppReuseStrategy.deleteRouteSnapshot(url);
+    this.store.dispatch(this.action.CutTagList(url));
+    const length = this.tagList.length;
+    // 关闭最后一个标签后，跳转到首页
+    if (length === 0) {
+      this.router.navigate(['/pages/home']);
+      this.addTagList('/pages/home');
+      this.currentPath = '/pages/home';
+    }
+    // 如果关闭的是当前页，则跳转到最后一个标签
+    if (url === this.currentPath) {
+      this.router.navigate([this.tagList[length - 1].url]);
+      this.currentPath = this.tagList[length - 1].url;
+    }
+  }
+
+  /**
+   * 关闭其他标签
+   */
+  cutOtherTagList(url: any): void {
+    // 清除路由快照
+    AppReuseStrategy.resetCache();
+    if (this.currentPath !== url) {
+      // 说明需要选中url标签
+      this.router.navigate([url]);
+      this.currentPath = url;
+    }
+    this.store.dispatch(this.action.CutOtherTagList(url));
+  }
+
+  /**
+   * 关闭所有标签
+   */
+  emptyTagList(): void {
+    // 清除路由快照
+    AppReuseStrategy.resetCache();
+    this.store.dispatch(this.action.EmptyTagList());
+    this.router.navigate(['/pages/home']);
+    this.currentPath = '/pages/home';
+    this.addTagList('/pages/home');
+  }
+
+  /**
+   * 初始化标签
+   */
+  initTagList(): void {
+    this.menuList.map((item: { url: string; }) => {
+      if (item.url === this.currentPath) {
+        this.addTagList(item.url);
+      }
+    });
+  }
+
+  /**
+   * 点击鼠标右键
+   * @param $event event
+   * @param menu menu
+   */
+  contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
+    this.nzContextMenuService.create($event, menu);
+  }
+
+  /**
+   * 点击标签
+   * @param item item
+   */
+  chooseTag(item: any): void {
+    this.router.navigate([item.url]);
+    this.currentPath = item.url;
+  }
+
+  /**
+   * 跳转页面
+   * @param item item
+   */
+  goToDetailMenu(item: any): void {
+    this.chooseTag(item);
+    this.addTagList(item.url);
+  }
+
+  /**
+   * 退出登录
+   */
+  logOut():void {
+    StorageUtil.clearLocal();
+    StorageUtil.clearSession();
+    AppReuseStrategy.resetCache();
+    AppReuseStrategy.deleteRouteSnapshot('/pages/home');
+    this.router.navigate(['/login']);
   }
 }
