@@ -72,6 +72,20 @@ export class LoginComponent implements OnInit {
               title:'课程管理',
               url:'/pages/course-manage/my-class',
               value:'402881f371e8f5250171f21f1a410091'
+            },
+            {
+              checkStatus: true,
+              children: [],
+              disabled: false,
+              icon: 'fa fa-database',
+              isLeaf: true,
+              key: '402881f371e8f5250171f220379b00a6',
+              level: 2,
+              showLevel: 2,
+              status: 1,
+              title: '实验管理',
+              url: '/pages/course-manage/classroom-manage',
+              value: '402881f371e8f5250171f220379b00a6'
             }
           ],
           disabled:false,

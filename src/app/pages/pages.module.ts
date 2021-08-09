@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 
 import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 import {PagesRoutingModule} from './pages-routing.module';
 
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -9,6 +10,7 @@ import { NzTagModule} from 'ng-zorro-antd/tag';
 import { NzDropDownModule} from 'ng-zorro-antd/dropdown';
 import { NzFormModule} from 'ng-zorro-antd/form';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -29,7 +31,8 @@ import {IconsProviderModule} from '../icons-provider.module';
   imports: [
     CommonModule, PagesRoutingModule,IconsProviderModule,
     NzLayoutModule, NzMenuModule, NzTagModule,
-    NzFormModule, NzButtonModule,
+    NzFormModule, NzButtonModule, NzInputModule,
+    FormsModule,
     NzDropDownModule,StoreModule.forRoot({
       ui: uiReducer
     }, {}), // 注册store

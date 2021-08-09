@@ -3,6 +3,10 @@ import {RouterModule, Routes} from '@angular/router';
 import {CourseManageComponent} from './course-manage.component';
 import {MyClassComponent} from './my-class/my-class.component';
 
+import { NzInputModule } from 'ng-zorro-antd/input';
+import {FormsModule} from '@angular/forms';
+import { ClassroomManageComponent } from './classroom-manage/classroom-manage.component';
+
 
 const routes: Routes = [
   {
@@ -11,7 +15,17 @@ const routes: Routes = [
     children: [
       {
         path: 'my-class',
-        component: MyClassComponent
+        component: MyClassComponent,
+        data: {
+          breadcrumb: '我的课堂'
+        }
+      },
+      {
+        path: 'classroom-manage',
+        component: ClassroomManageComponent,
+        data: {
+          breadcrumb: '课堂管理'
+        }
       }
     ]
   }
@@ -20,9 +34,11 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     CourseManageComponent,
-    MyClassComponent
+    MyClassComponent,
+    ClassroomManageComponent
   ],
   imports: [
+    NzInputModule, FormsModule,
     RouterModule.forChild(routes)
   ]
 })

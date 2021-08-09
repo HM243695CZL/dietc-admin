@@ -5,6 +5,7 @@ import {PagesComponent} from './pages.component';
 import {HomeComponent} from './home/home.component';
 import {TestComponent} from './test/test.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {LoginActivate} from '../utils/login.activate';
 
 const routes: Routes = [
   {
@@ -25,7 +26,7 @@ const routes: Routes = [
       },
       {
         path: 'course-manage',
-        loadChildren: () => import('./course-manage/course-manage.module').then(m => m.CourseManageModule)
+        loadChildren: () => import('./course-manage/course-manage.module').then(m => m.CourseManageModule),
       },
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: '**', redirectTo: 'home'}

@@ -45,9 +45,10 @@ export class AppReuseStrategy implements  RouteReuseStrategy {
   }
 
   /** 从缓存中获取快照，若无则返回null */
-  retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle | null {
+  retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle{
     const url = this.getFullRouteUrl(route);
     const data = this.getRouteData(route);
+    // @ts-ignore
     return data && AppReuseStrategy.routeCache.has(url)
       // @ts-ignore
       ? AppReuseStrategy.routeCache.get(url).handle

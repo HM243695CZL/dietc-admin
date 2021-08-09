@@ -124,7 +124,6 @@ export class PagesComponent implements OnInit{
    * @param item item
    */
   chooseTag(item: any): void {
-    console.log(item.url);
     this.router.navigate([item.url]);
     this.currentPath = item.url;
   }
@@ -146,6 +145,7 @@ export class PagesComponent implements OnInit{
     StorageUtil.clearSession();
     AppReuseStrategy.resetCache();
     AppReuseStrategy.deleteRouteSnapshot('/pages/home');
+    this.emptyTagList();
     this.router.navigate(['/login']);
   }
 }
