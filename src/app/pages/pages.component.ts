@@ -31,7 +31,6 @@ export class PagesComponent implements OnInit{
     const stream = store.pipe(select('ui'));
     // 从app.module.ts获取count状态流
     stream.subscribe(res => {
-      console.log(res);
       const {tagList, menuList} = res;
       this.tagList = tagList;
       this.menuList = menuList;
@@ -40,7 +39,6 @@ export class PagesComponent implements OnInit{
 
   isCollapsed = false;
   ngOnInit() {
-    console.log(this.currentPath);
     this.initTagList();
   }
 
@@ -103,10 +101,12 @@ export class PagesComponent implements OnInit{
    * 初始化标签
    */
   initTagList(): void {
-    this.menuList.map((item: { url: string; }) => {
-      if (item.url === this.currentPath) {
-        this.addTagList(item.url);
-      }
+    this.menuList.map((item: { children: any[]; }) => {
+      (item.children || []).map(ele => {
+        if(ele.url === this.currentPath) {
+          this.addTagList(ele.url);
+        }
+      });
     });
   }
 
@@ -124,6 +124,7 @@ export class PagesComponent implements OnInit{
    * @param item item
    */
   chooseTag(item: any): void {
+    console.log(item.url);
     this.router.navigate([item.url]);
     this.currentPath = item.url;
   }

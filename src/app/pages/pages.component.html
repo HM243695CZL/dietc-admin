@@ -12,17 +12,16 @@
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
-        <ul>
+      <li nz-submenu [nzTitle]="item.title" *ngFor="let item of menuList">
+        <ul *ngFor="let ele of item.children">
           <li
-            *ngFor="let item of menuList"
             nz-menu-item
             nz-tooltip
             nzPlacement="right"
-            (click)="goToDetailMenu(item)"
-            [nzSelected]="item.url === currentPath"
+            (click)="goToDetailMenu(ele)"
+            [nzSelected]="ele.url === currentPath"
           >
-            <span>{{item.title}}</span>
+            <span>{{ele.title}}</span>
           </li>
         </ul>
       </li>

@@ -8,31 +8,9 @@ import {StorageUtil} from '../utils/storage.util';
 
 
 const initialState = {
-  token: StorageUtil.getSession('token'),
+  token: StorageUtil.getLocalStorage('token'),
   tagList: [],
-  menuList: [
-    {
-      title: '首页',
-      url: '/pages/home',
-      key: 1,
-      icon: 'fa fa-cc',
-      checkStatus: false
-    },
-    {
-      title: '测试',
-      url: '/pages/test',
-      key: 2,
-      icon: 'fa fa-cc',
-      checkStatus: false
-    },
-    {
-      title: '个人中心',
-      url: '/pages/dashboard',
-      key: 3,
-      icon: 'fa fa-cc',
-      checkStatus: false
-    }
-  ]
+  menuList: StorageUtil.getLocalStorage('menus')
 };
 // reducer定义了action被派发时state的具体改变方式
 export function uiReducer(state: any = initialState, action: Action): any {
@@ -45,10 +23,14 @@ export function uiReducer(state: any = initialState, action: Action): any {
         return state;
       }
       let obj = {};
-      state.menuList.map((item: { url: any; }) => {
-        if (item.url === payload) {
-          obj = item;
-        }
+      state.menuList.map((item: {
+        children: any;
+        url: any; }) => {
+        item.children.map((ele: { url: any; }) => {
+          if(ele.url === payload) {
+            obj = ele;
+          }
+        });
       });
       return {
         ...state,

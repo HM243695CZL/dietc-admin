@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {Store, select} from '@ngrx/store';
 import {StorageUtil} from './storage.util';
 
 // @ts-ignore
@@ -11,14 +10,7 @@ interface RequestStore {
 export class Interceptors {
   public instance: any;
   token = StorageUtil.getLocalStorage('token');
-  constructor(
-    // private store: Store<RequestStore>,
-  ) {
-    // const stream = store.pipe(select('ui'));
-    // stream.subscribe(res => {
-    //   this.token = res.token;
-    // });
-
+  constructor() {
     this.instance = axios.create({
       baseURL,
       timeout: 30000,

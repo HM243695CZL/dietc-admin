@@ -23,6 +23,10 @@ const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent
       },
+      {
+        path: 'course-manage',
+        loadChildren: () => import('./course-manage/course-manage.module').then(m => m.CourseManageModule)
+      },
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: '**', redirectTo: 'home'}
     ]
