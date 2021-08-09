@@ -23,7 +23,7 @@ export class LoginActivate implements CanActivate{
     /**
      * 通过有无token判断是否已经登录
      */
-    const token = StorageUtil.getSession('token');
+    const token = StorageUtil.getLocalStorage('token');
     if(token) {
       return true;
     } else {

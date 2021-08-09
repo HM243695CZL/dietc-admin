@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {Store, select} from '@ngrx/store';
+import {StorageUtil} from './storage.util';
 
 // @ts-ignore
 const baseURL = window.PLATFORM_CONFIG.baseUrl;
@@ -9,7 +10,7 @@ interface RequestStore {
 }
 export class Interceptors {
   public instance: any;
-  token: null;
+  token = StorageUtil.getLocalStorage('token');
   constructor(
     // private store: Store<RequestStore>,
   ) {
