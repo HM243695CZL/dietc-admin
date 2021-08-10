@@ -2,7 +2,7 @@
 import { Action } from '@ngrx/store';
 import {
   ADD_TAG_LIST,
-  CUT_TAG_LIST, CUT_OTHER_TAG_LIST, EMPTY_TAG_LIST
+  CUT_TAG_LIST, CUT_OTHER_TAG_LIST, EMPTY_TAG_LIST, CHANGE_CURR_PATH
 } from './actionType';
 import {StorageUtil} from '../utils/storage.util';
 
@@ -10,7 +10,8 @@ import {StorageUtil} from '../utils/storage.util';
 const initialState = {
   token: StorageUtil.getLocalStorage('token'),
   tagList: [],
-  menuList: StorageUtil.getLocalStorage('menus')
+  menuList: StorageUtil.getLocalStorage('menus'),
+  currentPath: location.pathname
 };
 // reducer定义了action被派发时state的具体改变方式
 export function uiReducer(state: any = initialState, action: Action): any {
@@ -19,7 +20,7 @@ export function uiReducer(state: any = initialState, action: Action): any {
   switch (type) {
     case ADD_TAG_LIST:
       const currentTagList = [...state.tagList];
-      if (currentTagList.filter(ele => ele.url === payload).length) {
+      if (currentTagList.filter(ele => ele.url === payload.url).length) {
         return state;
       }
       let obj = {};
@@ -27,7 +28,14 @@ export function uiReducer(state: any = initialState, action: Action): any {
         children: any;
         url: any; }) => {
         item.children.map((ele: { url: any; }) => {
-          if(ele.url === payload) {
+          // 跳转到对应组件详情页
+          if(payload.title) {
+            obj = {
+              title: payload.title,
+              url: payload.url
+            }
+          }
+          if(ele.url === payload.url) {
             obj = ele;
           }
         });
@@ -57,6 +65,11 @@ export function uiReducer(state: any = initialState, action: Action): any {
       return {
         ...state,
         tagList: []
+      };
+    case CHANGE_CURR_PATH:
+      return {
+        ...state,
+        currentPath: payload
       };
     default:
       return state;

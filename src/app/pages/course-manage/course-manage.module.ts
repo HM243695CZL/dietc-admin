@@ -6,6 +6,7 @@ import {MyClassComponent} from './my-class/my-class.component';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import {FormsModule} from '@angular/forms';
 import { ClassroomManageComponent } from './classroom-manage/classroom-manage.component';
+import { ClassInfoComponent } from './class-info/class-info.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,13 @@ const routes: Routes = [
         data: {
           breadcrumb: '课堂管理'
         }
+      },
+      {
+        path: 'class-info/:id',
+        component: ClassInfoComponent,
+        data: {
+          breadcrumb: '课堂详情'
+        }
       }
     ]
   }
@@ -35,7 +43,8 @@ const routes: Routes = [
   declarations: [
     CourseManageComponent,
     MyClassComponent,
-    ClassroomManageComponent
+    ClassroomManageComponent,
+    ClassInfoComponent
   ],
   imports: [
     NzInputModule, FormsModule,

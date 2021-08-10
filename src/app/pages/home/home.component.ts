@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
     const stream = store.pipe(select('ui'));
     // 从app.module.ts获取count状态流
     stream.subscribe(res => {
+      console.log(res);
       this.tagList = res.tagList;
     });
   }

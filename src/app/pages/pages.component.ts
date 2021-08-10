@@ -18,7 +18,7 @@ interface AppStore {
 
 
 export class PagesComponent implements OnInit{
-  currentPath = location.pathname;
+  currentPath: string | undefined;
   tagList: any;
   menuList: any;
   constructor(
@@ -31,7 +31,8 @@ export class PagesComponent implements OnInit{
     const stream = store.pipe(select('ui'));
     // 从app.module.ts获取count状态流
     stream.subscribe(res => {
-      const {tagList, menuList} = res;
+      const {tagList, menuList, currentPath} = res;
+      this.currentPath = currentPath;
       this.tagList = tagList;
       this.menuList = menuList;
     });
@@ -62,12 +63,12 @@ export class PagesComponent implements OnInit{
     if (length === 0) {
       this.router.navigate(['/pages/home']);
       this.addTagList('/pages/home');
-      this.currentPath = '/pages/home';
+      this.changeCurrentPath('/pages/home');
     }
     // 如果关闭的是当前页，则跳转到最后一个标签
     if (url === this.currentPath) {
       this.router.navigate([this.tagList[length - 1].url]);
-      this.currentPath = this.tagList[length - 1].url;
+      this.changeCurrentPath(this.tagList[length - 1].url)
     }
   }
 
@@ -80,7 +81,7 @@ export class PagesComponent implements OnInit{
     if (this.currentPath !== url) {
       // 说明需要选中url标签
       this.router.navigate([url]);
-      this.currentPath = url;
+      this.changeCurrentPath(url);
     }
     this.store.dispatch(this.action.CutOtherTagList(url));
   }
@@ -93,7 +94,7 @@ export class PagesComponent implements OnInit{
     AppReuseStrategy.resetCache();
     this.store.dispatch(this.action.EmptyTagList());
     this.router.navigate(['/pages/home']);
-    this.currentPath = '/pages/home';
+    this.changeCurrentPath('/pages/home');
     this.addTagList('/pages/home');
   }
 
@@ -124,8 +125,22 @@ export class PagesComponent implements OnInit{
    * @param item item
    */
   chooseTag(item: any): void {
-    this.router.navigate([item.url]);
-    this.currentPath = item.url;
+    const url = item.url.split('?')[0];
+    const params = item.url.split('?')[1];
+    if(params) {
+      // 表示点击的是详情页标签
+      /**
+       * 注：相同组件的详情页之间的跳转，需要一个路由作为过渡切换
+       * 最好是使用一个没有任何请求的简单页面或不存在的路由
+       */
+      this.router.navigate(['/pages/temp']);
+      setTimeout(() => {
+        this.router.navigate([url, params]);
+      }, 10);
+    } else {
+      this.router.navigate([url]);
+    }
+    this.changeCurrentPath(item.url);
   }
 
   /**
@@ -147,5 +162,13 @@ export class PagesComponent implements OnInit{
     AppReuseStrategy.deleteRouteSnapshot('/pages/home');
     this.emptyTagList();
     this.router.navigate(['/login']);
+  }
+
+  /**
+   * 更新当前地址
+   * @param url url
+   */
+  changeCurrentPath(url: any) {
+    this.store.dispatch(this.action.ChangeCurrPath(url));
   }
 }
