@@ -33,7 +33,8 @@ export class MyClassComponent implements OnInit {
     // @ts-ignore
     this.router.navigate(['/pages/course-manage/class-info', data[type]]);
     // @ts-ignore
+    this.store.dispatch(this.action.ChangeCurrPath(`/pages/course-manage/class-info?${data[type]}`));
+    // @ts-ignore
     this.store.dispatch(this.action.AddTagList(`/pages/course-manage/class-info?${data[type]}`, '课程详情'))
   }
-
 }
