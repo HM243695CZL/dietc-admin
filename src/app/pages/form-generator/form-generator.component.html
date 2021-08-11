@@ -1,0 +1,34 @@
+<div class="form-generator-container">
+  <div class="left-board">
+    <div class="components-list" *ngFor="let item of leftComponents">
+      <div class="component-title">
+        <i class="iconfont icon-component"></i>{{item.title}}
+      </div>
+      <div class="component-draggable"
+           [sortablejs]="item.list"
+           [sortablejsOptions]="sourceOptions"
+           [sortablejsCloneFunction]="addComponent"
+      >
+        <div class="components-item" *ngFor="let ele of item.list">
+          <div class="components-body">
+            <i [ngClass]="'iconfont icon-' + ele.__config__.tagIcon"></i>{{ele.__config__.label}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="center-board">
+    <div class="drawing-board"
+         [sortablejs]="drawingList"
+         [sortablejsOptions]="targetOptions"
+         [sortablejsCloneFunction]="addComponent"
+    >
+      <div class="drawing-item" *ngFor="let item of drawingList">
+        {{item.__config__.label}}
+      </div>
+    </div>
+  </div>
+  <div class="right-board">
+
+  </div>
+</div>
