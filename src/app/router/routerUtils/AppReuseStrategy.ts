@@ -27,6 +27,7 @@ export class AppReuseStrategy implements  RouteReuseStrategy {
       url = url.substring(1);
     }
     url = url.replace('/', '_');
+    url = url.replace('?', '/');
     if (AppReuseStrategy.routeCache.has(url)) {
       AppReuseStrategy.routeCache.delete(url);
       AppReuseStrategy.currentDelete = url;

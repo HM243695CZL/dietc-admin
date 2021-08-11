@@ -67,8 +67,8 @@ export class PagesComponent implements OnInit{
     }
     // 如果关闭的是当前页，则跳转到最后一个标签
     if (url === this.currentPath) {
-      this.router.navigate([this.tagList[length - 1].url]);
-      this.changeCurrentPath(this.tagList[length - 1].url)
+      const item = this.tagList[length - 1];
+      this.chooseTag(item);
     }
   }
 
