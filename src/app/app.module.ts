@@ -20,6 +20,7 @@ import {RouteReuseStrategy} from '@angular/router';
 import {LoginActivate} from './utils/login.activate';
 import { LoginComponent } from './login/login.component';
 import {CounterAction} from './store/actions';
+import {SortablejsModule} from 'ngx-sortablejs';
 
 registerLocaleData(zh);
 
@@ -31,7 +32,10 @@ registerLocaleData(zh);
   imports: [
     BrowserModule, AppRoutingModule, FormsModule,
     HttpClientModule, BrowserAnimationsModule,
-    NzFormModule, NzInputModule, NzButtonModule
+    NzFormModule, NzInputModule, NzButtonModule,
+    SortablejsModule.forRoot({
+      animation: 150
+    })
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },

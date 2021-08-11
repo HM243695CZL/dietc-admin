@@ -6,6 +6,7 @@ import {HomeComponent} from './home/home.component';
 import {TestComponent} from './test/test.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {LoginActivate} from '../utils/login.activate';
+import {FormGeneratorComponent} from './form-generator/form-generator.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent,
+      },
+      {
+        path: 'form-generator',
+        component: FormGeneratorComponent
       },
       {
         path: 'test',

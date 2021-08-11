@@ -25,6 +25,8 @@ import {environment} from '../../environments/environment';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {IconsProviderModule} from '../icons-provider.module';
+import { FormGeneratorComponent } from './form-generator/form-generator.component';
+import {SortablejsModule} from 'ngx-sortablejs';
 
 
 @NgModule({
@@ -32,7 +34,7 @@ import {IconsProviderModule} from '../icons-provider.module';
     CommonModule, PagesRoutingModule,IconsProviderModule,
     NzLayoutModule, NzMenuModule, NzTagModule,
     NzFormModule, NzButtonModule, NzInputModule,
-    FormsModule,
+    FormsModule, SortablejsModule,
     NzDropDownModule,StoreModule.forRoot({
       ui: uiReducer
     }, {}), // 注册store
@@ -42,7 +44,7 @@ import {IconsProviderModule} from '../icons-provider.module';
   ],
   declarations: [
     PagesComponent, HomeComponent, TestComponent,
-    DashboardComponent
+    DashboardComponent, FormGeneratorComponent
   ],
   exports: [PagesComponent]
 })

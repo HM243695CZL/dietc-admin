@@ -60,6 +60,10 @@ export class LoginComponent implements OnInit {
               url: '/pages/home',
             },
             {
+              title: '表单生成器',
+              url: '/pages/form-generator'
+            },
+            {
               checkStatus:false,
               children:[],
               disabled:false,
