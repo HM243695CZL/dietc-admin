@@ -7,24 +7,28 @@
       <div class="component-draggable"
            [sortablejs]="item.list"
            [sortablejsOptions]="sourceOptions"
-           [sortablejsCloneFunction]="addComponent"
+           [sortablejsCloneFunction]="onEnd"
       >
-        <div class="components-item" *ngFor="let ele of item.list">
+        <div class="components-item"
+             *ngFor="let ele of item.list"
+             (click)="addComponent(ele)"
+        >
           <div class="components-body">
             <i [ngClass]="'iconfont icon-' + ele.__config__.tagIcon"></i>{{ele.__config__.label}}
           </div>
         </div>
       </div>
     </div>
+    <button nz-button nzType="primary" (click)="showData()">查看数据</button>
   </div>
   <div class="center-board">
     <div class="drawing-board"
          [sortablejs]="drawingList"
          [sortablejsOptions]="targetOptions"
-         [sortablejsCloneFunction]="addComponent"
+         [sortablejsCloneFunction]="onEnd"
     >
-      <div class="drawing-item" *ngFor="let item of drawingList">
-        {{item.__config__.label}}
+      <div class="drawing-item" *ngFor="let item of drawingList;">
+        <app-draggable-item [drawingItem]="item" [activeId]="activeId"></app-draggable-item>
       </div>
     </div>
   </div>

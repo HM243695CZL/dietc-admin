@@ -13,6 +13,23 @@ interface HomeStore {
 })
 export class HomeComponent implements OnInit {
   tagList: any;
+
+  drawingItem = {
+    __config__: {
+      label: '单行文本',
+      labelWidth: null,
+      showLabel: true,
+      tag: 'input',
+      tagIcon: 'input',
+      defaultValue: undefined,
+      required: true,
+      sm: 3,
+      regList: []
+    },
+    placeholder: '请输入',
+    formId: 100
+  };
+  activeId = 100;
   constructor(
     private store: Store<HomeStore>,
     private action: CounterAction

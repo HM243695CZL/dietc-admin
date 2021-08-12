@@ -7,6 +7,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import {FormsModule} from '@angular/forms';
 import { ClassroomManageComponent } from './classroom-manage/classroom-manage.component';
 import { ClassInfoComponent } from './class-info/class-info.component';
+import {CommonShareModule} from '../../common-share/common-share.module';
 
 
 const routes: Routes = [
@@ -47,7 +48,7 @@ const routes: Routes = [
     ClassInfoComponent
   ],
   imports: [
-    NzInputModule, FormsModule,
+    NzInputModule, FormsModule, CommonShareModule,
     RouterModule.forChild(routes)
   ]
 })

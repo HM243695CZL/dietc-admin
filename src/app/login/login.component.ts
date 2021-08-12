@@ -64,6 +64,10 @@ export class LoginComponent implements OnInit {
               url: '/pages/form-generator'
             },
             {
+              title: '测试',
+              url: '/pages/test'
+            },
+            {
               checkStatus:false,
               children:[],
               disabled:false,

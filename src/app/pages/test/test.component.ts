@@ -8,6 +8,23 @@ import {TestService} from './test.service';
   providers: [TestService]
 })
 export class TestComponent implements OnInit {
+
+  drawingItem = {
+    __config__: {
+      label: '单行文本',
+      labelWidth: null,
+      showLabel: true,
+      tag: 'input',
+      tagIcon: 'input',
+      defaultValue: undefined,
+      required: true,
+      sm: 3,
+      regList: []
+    },
+    placeholder: '请输入',
+    formId: 100
+  };
+  activeId = 100;
   constructor(
     private http: TestService
   ) { }

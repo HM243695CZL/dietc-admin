@@ -27,6 +27,7 @@ import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {IconsProviderModule} from '../icons-provider.module';
 import { FormGeneratorComponent } from './form-generator/form-generator.component';
 import {SortablejsModule} from 'ngx-sortablejs';
+import {CommonShareModule} from '../common-share/common-share.module';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import {SortablejsModule} from 'ngx-sortablejs';
     CommonModule, PagesRoutingModule,IconsProviderModule,
     NzLayoutModule, NzMenuModule, NzTagModule,
     NzFormModule, NzButtonModule, NzInputModule,
-    FormsModule, SortablejsModule,
+    FormsModule, SortablejsModule, CommonShareModule,
     NzDropDownModule,StoreModule.forRoot({
       ui: uiReducer
     }, {}), // 注册store

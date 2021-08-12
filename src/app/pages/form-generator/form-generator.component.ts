@@ -8,6 +8,7 @@ import {Options} from 'sortablejs';
   styleUrls: ['./form-generator.component.less']
 })
 export class FormGeneratorComponent implements OnInit {
+  isGlobal = 100;
   leftComponents = [
     {
       title: '输入型组件',
@@ -22,6 +23,8 @@ export class FormGeneratorComponent implements OnInit {
       list: []
     }
   ];
+  activeId: any = '';
+  activeData: any = {};
   drawingList: any = [];
   sourceOptions: Options = {
     group: {
@@ -39,9 +42,22 @@ export class FormGeneratorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addComponent(item: any) {
-    console.log(item);
+  onEnd(item: any) {
     return item;
   };
+
+  createIdAndKey(item: any) {
+    item.formId = this.activeId = ++this.isGlobal;
+    return item;
+  }
+
+  addComponent(item: any) {
+    this.createIdAndKey(item);
+    this.drawingList.push(item);
+  };
+
+  showData() {
+    console.log(this.drawingList);
+  }
 
 }

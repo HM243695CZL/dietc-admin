@@ -8,7 +8,7 @@ export const inputComponents = [
       tagIcon: 'input',
       defaultValue: undefined,
       required: true,
-      span: 24,
+      sm: 3,
       regList: []
     },
     placeholder: '请输入'
@@ -22,9 +22,11 @@ export const inputComponents = [
       tagIcon: 'textarea',
       defaultValue: undefined,
       required: true,
-      span: 24,
+      sm: 3,
       regList: []
     },
-    placeholder: '请输入'
+    placeholder: '请输入',
+    minRow: 3,
+    maxRow: 5
   }
 ];
