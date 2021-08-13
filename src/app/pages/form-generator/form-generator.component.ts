@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {inputComponents} from './generator/config';
+import { drawingDefault } from  './generator/drawingDefault'
 import {Options} from 'sortablejs';
+import {ToolUtils} from '../../utils/tool.utils';
 
 @Component({
   selector: 'app-form-generator',
@@ -8,7 +10,7 @@ import {Options} from 'sortablejs';
   styleUrls: ['./form-generator.component.less']
 })
 export class FormGeneratorComponent implements OnInit {
-  isGlobal = 100;
+  idGlobal = 100;
   leftComponents = [
     {
       title: '输入型组件',
@@ -24,8 +26,9 @@ export class FormGeneratorComponent implements OnInit {
     }
   ];
   activeId: any = '';
-  activeData: any = {};
-  drawingList: any = [];
+  activeData: any = drawingDefault[0];
+  tempActiveData: any = {};
+  drawingList: any = drawingDefault;
   sourceOptions: Options = {
     group: {
       name: 'clone-group',
@@ -43,18 +46,41 @@ export class FormGeneratorComponent implements OnInit {
   }
 
   onEnd(item: any) {
+    this.activeData = item;
+    this.activeId = this.idGlobal;
     return item;
   };
 
   createIdAndKey(item: any) {
-    item.formId = this.activeId = ++this.isGlobal;
+    const config = item.__config__;
+    config.formId = ++this.idGlobal;
+    if(config.layout === 'colFormItem') {
+      item.__vModel__ = `field${this.idGlobal}`;
+    }
     return item;
   }
 
   addComponent(item: any) {
-    this.createIdAndKey(item);
-    this.drawingList.push(item);
+    const clone = this.cloneComponent(item);
+    this.drawingList.push(clone);
+    this.activeFormItem(clone);
   };
+
+  cloneComponent(origin: any) {
+    const clone = ToolUtils.deepClone(origin);
+    const config = clone.__config__;
+    this.createIdAndKey(clone);
+    if(clone.placeholder !== undefined) {
+      clone.placeholder += config.label
+    }
+    this.tempActiveData = clone;
+    return this.tempActiveData;
+  }
+
+  activeFormItem(currentItem: any) {
+    this.activeData = currentItem;
+    this.activeId = currentItem.__config__.formId;
+  }
 
   showData() {
     console.log(this.drawingList);

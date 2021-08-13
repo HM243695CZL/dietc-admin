@@ -27,12 +27,12 @@
          [sortablejsOptions]="targetOptions"
          [sortablejsCloneFunction]="onEnd"
     >
-      <div class="drawing-item" *ngFor="let item of drawingList;">
+      <div class="drawing-item" (click)="activeFormItem(item)" *ngFor="let item of drawingList;">
         <app-draggable-item [drawingItem]="item" [activeId]="activeId"></app-draggable-item>
       </div>
     </div>
   </div>
   <div class="right-board">
-
+    <app-right-panel [activeData]="activeData"></app-right-panel>
   </div>
 </div>

@@ -1,0 +1,24 @@
+.right-panel-container{
+  .tab-box{
+    width: 100%;
+    ::ng-deep {
+      .ant-tabs-nav-list{
+        width: 100%;
+        .ant-tabs-tab{
+          width: 50%;
+          .ant-tabs-tab-btn{
+            width: 100%;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+
+  .field-box, .form-box{
+    display: none;
+    &.show{
+      display: block;
+    }
+  }
+}

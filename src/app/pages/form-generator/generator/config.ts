@@ -8,6 +8,7 @@ export const inputComponents = [
       tagIcon: 'input',
       defaultValue: undefined,
       required: true,
+      layout: 'colFormItem',
       sm: 3,
       regList: []
     },
@@ -22,6 +23,7 @@ export const inputComponents = [
       tagIcon: 'textarea',
       defaultValue: undefined,
       required: true,
+      layout: 'colFormItem',
       sm: 3,
       regList: []
     },

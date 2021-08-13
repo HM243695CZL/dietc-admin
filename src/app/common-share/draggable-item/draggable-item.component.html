@@ -1,5 +1,5 @@
 <div class="draggable-item-container">
-  <div class="form-item" [ngClass]="activeId === drawingItem.formId ? 'active-form-item' : ''" *ngIf="drawingItem.__config__.tag === 'input'">
+  <div class="form-item" [ngClass]="activeId === drawingItem.__config__.formId ? 'active-form-item' : ''" *ngIf="drawingItem.__config__.tag === 'input'">
     <nz-form-item>
       <nz-form-label [nzSm]="drawingItem.__config__.sm">
         {{drawingItem.__config__.label}}
@@ -12,7 +12,7 @@
       </nz-form-control>
     </nz-form-item>
   </div>
-  <div class="form-item" [ngClass]="activeId === drawingItem.formId ? 'active-form-item' : ''" *ngIf="drawingItem.__config__.tag === 'textarea'">
+  <div class="form-item" [ngClass]="activeId === drawingItem.__config__.formId ? 'active-form-item' : ''" *ngIf="drawingItem.__config__.tag === 'textarea'">
     <nz-form-item>
       <nz-form-label [nzSm]="drawingItem.__config__.sm">
         {{drawingItem.__config__.label}}

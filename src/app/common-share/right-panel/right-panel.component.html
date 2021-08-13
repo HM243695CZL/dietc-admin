@@ -1,0 +1,22 @@
+<div class="right-panel-container">
+  <nz-tabset class="tab-box" nzCentered (nzSelectChange)="changeCurrentTab($event)" [nzSelectedIndex]="currentTab">
+    <nz-tab nzTitle="组件属性"></nz-tab>
+    <nz-tab nzTitle="表单属性"></nz-tab>
+  </nz-tabset>
+  <div class="field-box" [ngClass]="currentTab === 0 ? 'show' : ''">
+    <nz-form-item>
+      <nz-form-label [nzSm]="activeData.__config__.sm">
+        {{activeData.__config__.label}}
+      </nz-form-label>
+      <nz-form-control [nzSm]="24 - activeData.__config__.sm">
+        <input type="text" nz-input
+          [placeholder]="activeData.placeholder"
+               [(ngModel)]="activeData.__vModel__"
+        >
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div class="form-box" [ngClass]="currentTab === 1 ? 'show' : ''">
+    form-box
+  </div>
+</div>
